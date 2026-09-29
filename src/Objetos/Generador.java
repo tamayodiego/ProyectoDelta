@@ -102,6 +102,7 @@ public class Generador implements  Serializable{
            case 2: n=4;
            break;
            case 3: n=Integer.MAX_VALUE;
+           break;
            default: n=-1;
        }
        
