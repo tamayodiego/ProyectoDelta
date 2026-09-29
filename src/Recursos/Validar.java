@@ -53,10 +53,11 @@ public class Validar implements  Serializable {
     
     
     
-    //este metodo analiza si tiene terminos negativos lo que supondria una matriz Antisimetrica
+    //este metodo analiza si tiene terminos negativos lo que supondria una matriz Antisimetrica.
+    //Se revisa la matriz completa: una antisimetrica puede tener todos sus -1 debajo de la diagonal
     private boolean descubreTipoMatriz(byte[][] mat) {
         for(int i =0;i<mat.length;i++)
-            for(int j =i;j<mat.length;j++)
+            for(int j =0;j<mat.length;j++)
                 if(mat[i][j]<0) return false;
         return true;
     }
