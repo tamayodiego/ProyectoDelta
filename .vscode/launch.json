@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "ProyectoDelta",
+      "request": "launch",
+      "mainClass": "Tested.Main",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
