@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
  */
 class CaracterizacionDeltaMatroideTest {
 
-    private static final Path DIRECTORIO_GOLDEN = Paths.get("test", "recursos", "golden");
+    private static final Path DIRECTORIO_GOLDEN = Paths.get("test", "golden");
     private static final boolean ACTUALIZAR = Boolean.getBoolean("actualizar.golden");
 
     private static final int GF2 = 0;
