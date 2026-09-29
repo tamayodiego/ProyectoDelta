@@ -1,0 +1,19 @@
+# Compilación
+build/
+dist/
+bin/
+*.class
+a.out
+
+# NetBeans: configuración local de cada máquina
+nbproject/private/
+
+# Datos que la app genera al ejecutarse
+data.00
+*.dma
+*.dmc
+
+# Sistema operativo y editores
+.DS_Store
+.directory
+.Rhistory
