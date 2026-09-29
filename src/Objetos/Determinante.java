@@ -1,157 +1,134 @@
 package Objetos;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
+/**
+ * Determinante exacto de una matriz cuadrada de enteros.
+ *
+ * La versión original de esta clase la escribió un compañero del equipo
+ * con eliminación gaussiana en float. Se reemplazó en 2026 porque, al
+ * comparar un pivote con == 0, un residuo de redondeo (p. ej. 2e-16) se
+ * tomaba como pivote válido y el resultado se corrompía; desde 12x12
+ * aparecían submatrices mal clasificadas como factibles o no factibles.
+ *
+ * Ahora se usa el algoritmo de Bareiss (1968): eliminación sin fracciones
+ * donde cada división es exacta, así que trabaja solo con enteros. Cada
+ * valor intermedio es un menor de la matriz original. Se calcula con long
+ * y, si algún producto se desborda, se repite con BigInteger.
+ */
+public class Determinante implements Serializable {
 
-public class Determinante implements  Serializable{
-	
-	private   double det=1;
-	public float matriz[][];
-	public  boolean flg=false;
-	
-//	public static boolean flg; //bandera para imprimir
-//	//constructor recibe una matriz de nxn y prende o apaga bandera para imprimir
-//	@SuppressWarnings("static-access")
-//	public Determinante(float[][] matriz, boolean flag) {
-//		super();
-//		this.matriz = matriz;
-//		this.flg = flag;
-//	}
-	
-	//constructor recibe una matriz de nxn
-	public Determinante(byte[][] matriz) {
-		super();
-		this.matriz =parseFloat(matriz);
-	}
-	
+    private final byte[][] matriz;
 
-///////////////CALCULO DEL DETERMINANTE DE LA MATRIZ TRIANGULADA, MULTIPLICAN LOS ELEMENTOS DE SU DIAGONAL	
-public  double calcDet() {
-	
-	if (flg) imprime(matriz);
-	
-	//primero triangula la matriz
-	triangular(matriz);
-	
-	//calcula el determinante
-	det=det*matriz[matriz.length-1][matriz.length-1];
-	//lo redondea
-	det=fijarNum(det, 0);
-	
-	return det;
-}
-	
-///////////////////FUNCIONES B�SICAS PARA TRIANGULAR LA MATRIZ///////////////////////////////////////////
-////////////////////INTERCAMBIA r1<-->r2////////////////////////////////////////////////////////////////	
-	public   void intercambia(float mat[][],int r1, int r2){
-		float aux1[]= new float[mat.length],
-			aux2[]= new float[mat.length];
-		
-		for (int i = 0; i < mat.length; i++) {
-			aux1[i]=mat[r1][i];
-			aux2[i]=mat[r2][i];
-		}
-		
-		for (int i = 0; i < mat.length; i++) {
-			mat[r1][i]=aux2[i];
-			mat[r2][i]=aux1[i];
-		}
-		
-		det=-det;
-
-	}
-//////////////////SUSTITUYE c1r1 - c2r2 --> r2///////////////////////////////////////////////////////////	
-	public   void sustituye(float mat[][],float c1,int r1,float c2,int r2) {
-		float auxr[]=new float [mat.length],
-			aux1[]= new float[mat.length],
-			aux2[]= new float[mat.length];
-		
-		for (int i = 0; i < mat.length; i++) {
-			aux1[i]=c1*mat[r1][i];
-			aux2[i]=c2*mat[r2][i];
-		}
-		
-		for (int i = 0; i < auxr.length; i++) {
-			auxr[i]=aux1[i]-aux2[i];
-			mat[r2][i]=auxr[i];
-		}
-		
-	}
-	
-	public   void norm(float mat[][], int r,int e) {
-		float c=mat[r][e];
-		for (int i = 0; i < mat.length; i++) {
-			mat[r][i]/=c;
-		}
-		det=det*c;
-	}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-
-	
-//////////////FUNCION QUE TRIANGULA LA MATRIZ
-	public  void triangular(float mat[][]) {
-	
-			for (int i = 0; i < mat.length; i++) {
-			/////se verifica que el pivote no sea cero y si lo es va intercambiando renglones hasta que deje de serlo
-			//// en caso de que todos tengan cero el det=0
-				for (int k = i+1; k < mat.length && mat[i][i]==0; k++) {
-					intercambia(mat, i, k);
-					if (flg) imprime(mat);
-				}
-				if(mat[i][i]==0){
-						det=0;
-					return;
-				}
-				
-				
-				if(mat[i][i]!=1.0 && i<mat.length-1 && mat[i][i]!=0.0){
-					norm(mat, i,i);		//vuelve 1 el pivote
-					if (flg) imprime(mat);
-					}
-				//comienza a hacer 0's debajo del pivote
-				for (int j = i+1; j < mat.length; j++) {
-					if(mat[j][i]!=0){
-					sustituye(mat, mat[j][i], i, mat[i][i], j);
-					if (flg) imprime(mat);
-					}
-				}
-				
-			}
-
-	}	
-	
-//////////////FUNCION PARA IMPRIMIR LA MATRIZ
-	////se deber� prender o apagar la bandera
-public   void imprime(float mat[][]) {
-		for (int i = 0; i < mat.length; i++) {
-			for (int j = 0; j < mat.length; j++) {
-				System.out.print(mat[i][j]+" ");
-			}
-			System.out.println();
-		}
-		System.out.println();
-	}
-	
-///redondear el determinante para numeros reales
-public double fijarNum(double numero, int digitos) {
-	double resultado;
-	resultado=numero*Math.pow(10, digitos);
-	resultado=Math.round(resultado);
-	resultado=resultado/Math.pow(10, digitos);
-	
-	return resultado;
-	
-}
-
-    private float[][] parseFloat(byte[][] matriz) {
-        float [][] aux=new float[matriz.length][matriz.length];
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz.length; j++) {
-                aux[i][j]=(float)matriz[i][j];
-            }
-                            
-        }
-        return aux;
+    public Determinante(byte[][] matriz) {
+        this.matriz = matriz;
     }
 
+    /**
+     * Determinante exacto, con signo.
+     */
+    public BigInteger calcDetExacto() {
+        try {
+            return BigInteger.valueOf(bareissLong(matriz));
+        } catch (ArithmeticException desbordamiento) {
+            return bareissBigInteger(matriz);
+        }
+    }
+
+    /**
+     * Se conserva por compatibilidad con la interfaz anterior. Es exacto
+     * mientras el determinante quepa en un double (|det| < 2^53).
+     */
+    public double calcDet() {
+        return calcDetExacto().doubleValue();
+    }
+
+    static long bareissLong(byte[][] a) {
+        int n = a.length;
+        if (n == 0) {
+            return 1;
+        }
+        long[][] m = new long[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                m[i][j] = a[i][j];
+            }
+        }
+
+        int signo = 1;
+        long pivoteAnterior = 1;
+        for (int k = 0; k < n - 1; k++) {
+            if (m[k][k] == 0) {
+                int r = renglonConPivote(m, k);
+                if (r < 0) {
+                    return 0;
+                }
+                long[] t = m[k];
+                m[k] = m[r];
+                m[r] = t;
+                signo = -signo;
+            }
+            for (int i = k + 1; i < n; i++) {
+                for (int j = k + 1; j < n; j++) {
+                    m[i][j] = Math.subtractExact(
+                            Math.multiplyExact(m[k][k], m[i][j]),
+                            Math.multiplyExact(m[i][k], m[k][j])) / pivoteAnterior;
+                }
+            }
+            pivoteAnterior = m[k][k];
+        }
+        return signo * m[n - 1][n - 1];
+    }
+
+    static BigInteger bareissBigInteger(byte[][] a) {
+        int n = a.length;
+        if (n == 0) {
+            return BigInteger.ONE;
+        }
+        BigInteger[][] m = new BigInteger[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                m[i][j] = BigInteger.valueOf(a[i][j]);
+            }
+        }
+
+        int signo = 1;
+        BigInteger pivoteAnterior = BigInteger.ONE;
+        for (int k = 0; k < n - 1; k++) {
+            if (m[k][k].signum() == 0) {
+                int r = -1;
+                for (int i = k + 1; i < n && r < 0; i++) {
+                    if (m[i][k].signum() != 0) {
+                        r = i;
+                    }
+                }
+                if (r < 0) {
+                    return BigInteger.ZERO;
+                }
+                BigInteger[] t = m[k];
+                m[k] = m[r];
+                m[r] = t;
+                signo = -signo;
+            }
+            for (int i = k + 1; i < n; i++) {
+                for (int j = k + 1; j < n; j++) {
+                    m[i][j] = m[k][k].multiply(m[i][j])
+                            .subtract(m[i][k].multiply(m[k][j]))
+                            .divide(pivoteAnterior);
+                }
+            }
+            pivoteAnterior = m[k][k];
+        }
+        return signo < 0 ? m[n - 1][n - 1].negate() : m[n - 1][n - 1];
+    }
+
+    private static int renglonConPivote(long[][] m, int k) {
+        for (int i = k + 1; i < m.length; i++) {
+            if (m[i][k] != 0) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

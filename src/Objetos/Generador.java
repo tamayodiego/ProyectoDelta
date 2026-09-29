@@ -7,6 +7,7 @@ package Objetos;
 
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -113,18 +114,16 @@ public class Generador implements  Serializable{
        
        byte[][] mat=generarMatriz(get,M);
 //       System.out.println(JFrameInicio.generaMatrisString(mat));
+       if(n<=0) return null;
        Determinante deter=new Determinante(mat);
-       
-       int det=(int)deter.calcDet();
-//        System.out.println("Determinante: " +det);
-      //  System.out.println("determinante " +det+" en modulo: " +n);
-       //  System.out.println("Acabe Determinante");
-         if(det<0)det=det *-1;
-         if((det%n)!=0) {
+
+       // |det| mod n con el determinante exacto, sin pasar por int
+       int det=deter.calcDetExacto().abs().mod(BigInteger.valueOf(n)).intValue();
+         if(det!=0) {
             SubMatriz A=new SubMatriz();
             A.setMatriz(mat);
             A.setSubF(get);
-            A.setDeterminante(det%n);
+            A.setDeterminante(det);
             return A;
         }
         else return null;
