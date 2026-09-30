@@ -5,13 +5,12 @@
  */
 package Recursos;
 
-import java.io.Serializable;
 
 /**
  * Valida y clasifica una matriz para procesar su analisis de forma diferente para cada caso
  * @author Diego Leonardo Frausto Tamayo
  */
-public class Validar implements  Serializable {
+public class Validar {
     
     private ParValidacion val=new ParValidacion();
 /**

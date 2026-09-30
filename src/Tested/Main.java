@@ -21,6 +21,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import persistencia.AreaDeTrabajoJson;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -96,20 +101,81 @@ public class Main {
     
     }
     
-    public static void menubarImportar(JFrame pancho){
-         JFileChooser explo=new JFileChooser();
-        explo.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivo dma", "dma","DMA");
-        explo.setFileFilter(filtro);
-       // explo.setSelectedFile(new File("AreaTrabajo"));
-        if(JFileChooser.APPROVE_OPTION==explo.showOpenDialog(pancho)){
-            Main.datos=Main.flujo.desSerializaDatos(explo.getSelectedFile());
-            Main.deltaMatroides=datos.getMatroides();
-            Main.flags=datos.getFlags();
-           
+    /** Archivo donde se guarda el área de trabajo entre ejecuciones. */
+    public static final Path ARCHIVO_AREA_DE_TRABAJO = Paths.get("areaDeTrabajo.json");
+
+    /** Guarda el área de trabajo actual. Es el único punto de guardado de la app. */
+    public static void guardarAreaDeTrabajo() {
+        guardarAreaDeTrabajo(ARCHIVO_AREA_DE_TRABAJO);
+    }
+
+    private static boolean guardarAreaDeTrabajo(Path ruta) {
+        datos.setFlags(flags);
+        datos.setMatroides(deltaMatroides);
+        try {
+            AreaDeTrabajoJson.guardar(datos, ruta);
+            return true;
+        } catch (IOException e) {
+            String mensaje = "No se pudo guardar " + ruta + ":\n" + e.getMessage();
+            System.err.println(mensaje);
+            if (!flags[4]) {
+                JOptionPane.showMessageDialog(null, mensaje, "Error al guardar", JOptionPane.ERROR_MESSAGE);
+            }
+            return false;
         }
     }
-    
+
+    /**
+     * Carga el área de trabajo guardada. Si el archivo existe pero no se
+     * puede leer, lo respalda como .bak (en lugar de sobrescribirlo al
+     * cerrar) y arranca con un área vacía.
+     *
+     * @return un aviso para el usuario, o null si todo salió bien
+     */
+    private static String cargarAreaDeTrabajo() {
+        Path ruta = ARCHIVO_AREA_DE_TRABAJO;
+        String aviso = null;
+        datos = null;
+        if (Files.exists(ruta)) {
+            try {
+                datos = AreaDeTrabajoJson.cargar(ruta);
+            } catch (IOException | AreaDeTrabajoJson.FormatoInvalidoException e) {
+                Path respaldo = ruta.resolveSibling(ruta.getFileName() + ".bak");
+                aviso = "No se pudo leer " + ruta + ":\n" + e.getMessage()
+                        + "\n\nSe inicia con un área de trabajo vacía";
+                try {
+                    Files.move(ruta, respaldo, StandardCopyOption.REPLACE_EXISTING);
+                    aviso += " y el archivo original se guardó como " + respaldo + ".";
+                } catch (IOException errorRespaldo) {
+                    aviso += ". Tampoco se pudo respaldar: " + errorRespaldo.getMessage();
+                }
+            }
+        }
+        if (datos == null) {
+            datos = new DatosSerializados();
+        }
+        return aviso;
+    }
+
+    /** @return true si se importó un área de trabajo */
+    public static boolean menubarImportar(JFrame pancho){
+         JFileChooser explo=new JFileChooser();
+        explo.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Área de trabajo (*.dmj)", "dmj","DMJ");
+        explo.setFileFilter(filtro);
+        if(JFileChooser.APPROVE_OPTION!=explo.showOpenDialog(pancho)) return false;
+        try {
+            datos = AreaDeTrabajoJson.cargar(explo.getSelectedFile().toPath());
+        } catch (IOException | AreaDeTrabajoJson.FormatoInvalidoException e) {
+            JOptionPane.showMessageDialog(pancho, "No se pudo importar el archivo:\n" + e.getMessage(),
+                    "Importar", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        deltaMatroides=datos.getMatroides();
+        flags=datos.getFlags();
+        return true;
+    }
+
     public static void menubarExportar(JFrame pancho){
      JFileChooser explo=new JFileChooser();
         explo.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -123,9 +189,9 @@ public class Main {
                 pushoAceptar=true;
                 fichero = explo.getSelectedFile();
                 String filePath = fichero.getPath();
-                if(!filePath.toLowerCase().endsWith(".dma"))
+                if(!filePath.toLowerCase().endsWith(".dmj"))
                 {
-                    fichero = new File(filePath + ".dma");
+                    fichero = new File(filePath + ".dmj");
                 }
                 boolean decicion;
                 if(fichero.exists()) { 
@@ -139,9 +205,7 @@ public class Main {
             }
         } 
         if(pushoAceptar){
-            datos.setNuevoAFalso();
-            datos.setMatroides(deltaMatroides);
-            Main.flujo.SerializaDatos(datos,fichero);
+            guardarAreaDeTrabajo(fichero.toPath());
         }
 }
     
@@ -162,15 +226,15 @@ public class Main {
     
     public static void main(String[] args) {
        
-        datos=flujo.desSerializaDatos();
-        if(datos==null) {
-            datos=new DatosSerializados();
-            System.out.println("es nulo O:");
-        }
+        String aviso=cargarAreaDeTrabajo();
         deltaMatroides=datos.getMatroides();
         flags=datos.getFlags();
-        
+
         determinaBanderas(true,args);
+        if(aviso!=null){
+            System.err.println(aviso);
+            if(!flags[4]) JOptionPane.showMessageDialog(null, aviso, "Área de trabajo", JOptionPane.WARNING_MESSAGE);
+        }
         if(flags[4]){
             byte[][] mat;
             boolean continua=true;
@@ -192,10 +256,7 @@ public class Main {
             
         }else iniciaInterfazGrafica();
         System.out.println("regrrese de inter....");
-        datos.setFlags(flags);
-        datos.setNuevoAFalso();
-        datos.setMatroides(deltaMatroides);
-        flujo.SerializaDatos(datos);
+        guardarAreaDeTrabajo();
         System.out.println("Terminando ejecucion .....");
         
         

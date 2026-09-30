@@ -6,7 +6,6 @@
 package Objetos;
 
 
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +17,7 @@ import java.util.LinkedList;
  * @author Diego Frausto Tamayo
  * @version 1.3
  */
-public class Generador implements  Serializable{
+public class Generador {
     
   
     int size;

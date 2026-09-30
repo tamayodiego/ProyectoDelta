@@ -505,10 +505,7 @@ public class Menu2 extends javax.swing.JFrame {
 
         if(JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas cerrar ProyectoDelta?", "¿Esta seguro?", JOptionPane.YES_NO_OPTION)==0){
             Main.fin = false;
-            //datos.setFlags(flags);
-            datos.setNuevoAFalso();
-            datos.setMatroides(deltaMatroides);
-            Main.flujo.SerializaDatos(datos);
+            Main.guardarAreaDeTrabajo();
             super.dispose();
             System.exit(0);
         }
@@ -732,53 +729,11 @@ public class Menu2 extends javax.swing.JFrame {
     }//GEN-LAST:event_listaMatroidesTreeExpanded
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-        
-        JFileChooser explo=new JFileChooser();
-        explo.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        explo.setSelectedFile(new File("AreaTrabajo"));
-        File fichero=null;
-        boolean continua=true,pushoAceptar = false;
-        while(continua){
-            pushoAceptar=false;
-            int seleccion = explo.showSaveDialog(this);
-            if (seleccion == JFileChooser.APPROVE_OPTION){
-                pushoAceptar=true;
-                fichero = explo.getSelectedFile();
-                String filePath = fichero.getPath();
-                if(!filePath.toLowerCase().endsWith(".dma"))
-                {
-                    fichero = new File(filePath + ".dma");
-                }
-                boolean decicion;
-                if(fichero.exists()) { 
-                  if( JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(this,"El fichero existe,deseas reemplazarlo?","Titulo",JOptionPane.YES_NO_OPTION))
-                  continua=false;
-                }else continua=false;
-            }else {
-                pushoAceptar=false;
-                break;
-            }
-        } 
-        if(pushoAceptar){
-            datos.setNuevoAFalso();
-            datos.setMatroides(deltaMatroides);
-            Main.flujo.SerializaDatos(datos,fichero);
-        }
-
+        Main.menubarExportar(this);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        JFileChooser explo=new JFileChooser();
-        explo.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivo dma", "dma","DMA");
-        explo.setFileFilter(filtro);
-       // explo.setSelectedFile(new File("AreaTrabajo"));
-        if(JFileChooser.APPROVE_OPTION==explo.showOpenDialog(this)){
-            Main.datos=Main.flujo.desSerializaDatos(explo.getSelectedFile());
-            Main.deltaMatroides=datos.getMatroides();
-            Main.flags=datos.getFlags();
+        if (Main.menubarImportar(this)) {
             Main.cargaListaMatroides(listaMatroides);
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed

@@ -9,9 +9,10 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 JUNIT="lib/junit-platform-console-standalone-6.1.3.jar"
+GSON="lib/gson-2.14.0.jar"
 SALIDA="build/pruebas"
 
-if [[ ! -f "$JUNIT" ]]; then
+if [[ ! -f "$JUNIT" || ! -f "$GSON" ]]; then
     scripts/descargar-dependencias.sh
 fi
 
@@ -23,7 +24,7 @@ fi
 rm -rf "$SALIDA"
 mkdir -p "$SALIDA"
 find src test -name '*.java' > "$SALIDA/fuentes.txt"
-javac -encoding UTF-8 -nowarn -cp "$JUNIT" -d "$SALIDA" @"$SALIDA/fuentes.txt"
+javac -encoding UTF-8 -nowarn -cp "$JUNIT:$GSON" -d "$SALIDA" @"$SALIDA/fuentes.txt"
 
 # Copia los recursos (imágenes) junto a las clases, como hace NetBeans.
 (cd src && find . -type f ! -name '*.java' ! -name '*.form') | while read -r f; do
@@ -32,7 +33,7 @@ javac -encoding UTF-8 -nowarn -cp "$JUNIT" -d "$SALIDA" @"$SALIDA/fuentes.txt"
 done
 
 java ${PROPIEDADES[@]+"${PROPIEDADES[@]}"} -jar "$JUNIT" execute \
-    --class-path "$SALIDA" \
+    --class-path "$SALIDA:$GSON" \
     --scan-class-path \
     --disable-banner \
     --details=tree

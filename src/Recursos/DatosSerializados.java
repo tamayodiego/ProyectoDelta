@@ -6,26 +6,23 @@
 package Recursos;
 
 import Objetos.DeltaMatroide;
-import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  *
  * @author diego
  */
-public class DatosSerializados implements  Serializable {
+public class DatosSerializados {
     private ElementoFolder
             folder;
     private boolean flags[];
-    private boolean nuevo;
-    
-    
+
+
     public DatosSerializados(){
         folder=new ElementoFolder(true, "Delta-Matroides", new LinkedList<ElementoFolder>(), null);
         folder.folder.add(new ElementoFolder(true,"Twst's",new LinkedList<ElementoFolder>(),folder));
-        
-        
-        nuevo=true;
+
+
         flags=new boolean[7];
         for(int i =0;i<7;i++) flags[i]=false;
     }
@@ -38,13 +35,6 @@ public class DatosSerializados implements  Serializable {
     public int cuantosMatroides(){
         return folder.folder.size();
     }
-    public boolean isNuevo(){
-        return nuevo;
-    }
-    public void setNuevoAFalso(){
-        nuevo=false;
-    }
-
     public boolean[] getFlags() {
         return flags;
     }

@@ -58,10 +58,7 @@ public class Menu extends javax.swing.JFrame {
     public void dispose(){
         
         Main.fin=false;
-        //datos.setFlags(flags);
-        datos.setNuevoAFalso();
-        datos.setMatroides(deltaMatroides);
-        Main.flujo.SerializaDatos(datos); 
+        Main.guardarAreaDeTrabajo();
         super.dispose();
         System.exit(0); 
 

@@ -16,7 +16,6 @@
  */
 package Objetos;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -24,7 +23,7 @@ import java.util.LinkedList;
  *
  * @author diego
  */
-public class Huella implements Comparable<Huella>,  Serializable{
+public class Huella implements Comparable<Huella> {
     private int huella[];
 
     public Huella(LinkedList<LinkedList<Integer> > deltaMatrode,int size) {
@@ -34,8 +33,8 @@ public class Huella implements Comparable<Huella>,  Serializable{
     }
 
     private void calculaHuella(LinkedList<LinkedList<Integer>> deltaMatrode) {
-        for (int i = 0; i < deltaMatrode.size(); i++) {
-            LinkedList<Integer> aux=deltaMatrode.get(i);
+        for (LinkedList<Integer> aux : deltaMatrode) {
+
             huella[aux.size()]++;         
         
         }

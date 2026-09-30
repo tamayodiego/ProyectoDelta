@@ -159,10 +159,7 @@ public class SelectorMatroide extends javax.swing.JDialog {
 
         if(JOptionPane.showConfirmDialog(null, "¿Esta seguro que deceas cerrar ProyectoDelta?", "¿Esta seguro?", JOptionPane.YES_NO_OPTION)==0){
             Main.fin = false;
-            //datos.setFlags(flags);
-            datos.setNuevoAFalso();
-            datos.setMatroides(deltaMatroides);
-            Main.flujo.SerializaDatos(datos);
+            Main.guardarAreaDeTrabajo();
             super.dispose();
             System.exit(0);
         }

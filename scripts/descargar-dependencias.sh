@@ -29,3 +29,4 @@ descargar() {
 }
 
 descargar org.junit.platform junit-platform-console-standalone 6.1.3
+descargar com.google.code.gson gson 2.14.0

@@ -1113,10 +1113,7 @@ public class GeneradorDeltaMatroide extends javax.swing.JFrame {
 
         if(JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas cerrar ProyectoDelta?", "¿Esta seguro?", JOptionPane.YES_NO_OPTION)==0){
             Main.fin = false;
-            //datos.setFlags(flags);
-            datos.setNuevoAFalso();
-            datos.setMatroides(deltaMatroides);
-            Main.flujo.SerializaDatos(datos);
+            Main.guardarAreaDeTrabajo();
             super.dispose();
             System.exit(0);
         }

@@ -5,14 +5,13 @@
  */
 package Recursos;
 
-import java.io.Serializable;
 
 /**
  * Este objeto funciona mas como una estructura de datos de control mas que como objeto, su objetivo es almacenar el tipo de matriz y su estado valido
  * @author Diego Tamayo
  * @version 1.0
  */
-public class ParValidacion implements  Serializable{
+public class ParValidacion {
     
     private boolean tipoMatriz;/* True: Simetrica False:Antisimetrica*/
     private boolean validaEnSuTipo;

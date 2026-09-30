@@ -17,14 +17,13 @@
 package Recursos;
 
 import Objetos.DeltaMatroide;
-import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  *
  * @author diego
  */
-public class ElementoFolder implements Serializable {
+public class ElementoFolder {
 
     private boolean isFolder;
     public boolean expandContra;

@@ -1,6 +1,5 @@
 package Objetos;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 
 /**
@@ -17,7 +16,7 @@ import java.math.BigInteger;
  * valor intermedio es un menor de la matriz original. Se calcula con long
  * y, si algún producto se desborda, se repite con BigInteger.
  */
-public class Determinante implements Serializable {
+public class Determinante {
 
     private final byte[][] matriz;
 

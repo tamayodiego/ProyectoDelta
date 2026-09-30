@@ -5,10 +5,18 @@ bin/
 *.class
 a.out
 
+# Librerías (se descargan con scripts/descargar-dependencias.sh)
+lib/
+
 # NetBeans: configuración local de cada máquina
 nbproject/private/
 
 # Datos que la app genera al ejecutarse
+areaDeTrabajo.json
+areaDeTrabajo.json.bak
+*.dmj
+*.tmp
+# Formato anterior (serialización de Java), ya no se usa
 data.00
 *.dma
 *.dmc
@@ -17,4 +25,3 @@ data.00
 .DS_Store
 .directory
 .Rhistory
-lib/

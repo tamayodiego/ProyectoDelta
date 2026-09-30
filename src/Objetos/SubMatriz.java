@@ -5,7 +5,6 @@
  */
 package Objetos;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
@@ -14,7 +13,7 @@ import java.util.LinkedList;
  * @version 1.2
  * 
  */
-public class SubMatriz implements  Serializable {
+public class SubMatriz {
     
     private byte [][] matriz;
     private LinkedList<Integer> subF;

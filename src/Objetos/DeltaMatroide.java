@@ -9,7 +9,6 @@ import Excepciones.OperacionDeMenorImposible;
 import Recursos.ConstructorFamilias;
 import Recursos.conjuntos.OperConj;
 import Tested.Main;
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,7 +21,7 @@ import java.util.logging.Logger;
  * @author Frausto Tamayo Diego
  * @version 1.43
  */
-public class DeltaMatroide implements Comparable<DeltaMatroide>, Serializable,Cloneable{
+public class DeltaMatroide implements Comparable<DeltaMatroide>, Cloneable{
     
     private LinkedList<SubMatriz> factibles;
     private LinkedList <LinkedList <Integer> > Familia;
@@ -94,11 +93,11 @@ public class DeltaMatroide implements Comparable<DeltaMatroide>, Serializable,Cl
         
         factibles=new LinkedList();
         
-         for(int i=0;i<f.size();i++){
+         for(LinkedList<Integer> factible : f){
              SubMatriz aux=new SubMatriz();
-             aux.setSubF(f.get(i));
+             aux.setSubF(factible);
              factibles.add(aux);
-             
+
          }
          
          this.etiquetas=eti;
@@ -211,7 +210,11 @@ public class DeltaMatroide implements Comparable<DeltaMatroide>, Serializable,Cl
     public byte[][] getM() {
         return M;
     }
-    
+
+    public void setM(byte[][] M) {
+        this.M = M;
+    }
+
      public int getCampo() {
         return campoDeOperacion;
     }
@@ -310,6 +313,10 @@ public class DeltaMatroide implements Comparable<DeltaMatroide>, Serializable,Cl
     public void setOrdenar(boolean ordenar) {
         this.ordenar = ordenar;
     }
+
+    public boolean isOrdenar() {
+        return ordenar;
+    }
     
     
     
@@ -335,9 +342,9 @@ public class DeltaMatroide implements Comparable<DeltaMatroide>, Serializable,Cl
     public void construyeFamilia() {
         Familia=new LinkedList();
         Familia.add(new LinkedList <Integer>());
-        for(int i =0;i<factibles.size();i++){
-            Familia.add(factibles.get(i).getSubF());
-            
+        for(SubMatriz factible : factibles){
+            Familia.add(factible.getSubF());
+
         }
        
     }
@@ -417,11 +424,10 @@ public class DeltaMatroide implements Comparable<DeltaMatroide>, Serializable,Cl
         tablaFrecuencias=new int[etiquetas.length];
         for (int i = 0; i < tablaFrecuencias.length; i++) tablaFrecuencias[i]=0;
         
-        for (int i = 0; i < Familia.size(); i++) {
-            LinkedList<Integer>  tem=Familia.get(i);
-            for (int j = 0; j < tem.size(); j++) {
-                tablaFrecuencias[tem.get(j)]++;
-                
+        for (LinkedList<Integer> tem : Familia) {
+            for (Integer elemento : tem) {
+                tablaFrecuencias[elemento]++;
+
             }
            
             
