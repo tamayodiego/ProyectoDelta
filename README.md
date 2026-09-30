@@ -1,5 +1,7 @@
 # ProyectoDelta
 
+[![Pruebas](https://github.com/tamayodiego/ProyectoDelta/actions/workflows/pruebas.yml/badge.svg)](https://github.com/tamayodiego/ProyectoDelta/actions/workflows/pruebas.yml)
+
 Paquete computacional de escritorio (Java + Swing) para la investigación en
 **delta-matroides**: genera delta-matroides a partir de matrices simétricas o
 antisimétricas sobre GF(2) y GF(3), y permite estudiarlas con operaciones como
