@@ -334,13 +334,8 @@ public class DeltaMatroide implements Comparable<DeltaMatroide>, Cloneable{
     
     
     public LinkedList <LinkedList <Integer> > twist(LinkedList <Integer> factible, boolean arg[]){
-       // System.out.println(factible + " " +arg );
-     //   System.out.println(Familia.size()+" "+arg.length+" ");
         for(int i =0;i<Familia.size();i++){
-//            System.out.println(i+ " de " + Familia.size() );
 //            Familia.get(i);
-//            System.out.println(arg[i]);
-//            System.out.println(factible);
 //            generador.toString();
             if(arg[i]) Familia.set(i, generador.diferenciaSimetrica(Familia.get(i), factible));
         }
@@ -524,7 +519,6 @@ public class DeltaMatroide implements Comparable<DeltaMatroide>, Cloneable{
 
         public LinkedList<String[]> getFuncionBiyectiva() {
             for (int i = 0; i < permutaciones.size(); i++) {
-                System.out.println(Imprime(permutaciones.get(i)));
                 
             }
             return funcionBiyectiva;
@@ -539,7 +533,6 @@ public class DeltaMatroide implements Comparable<DeltaMatroide>, Cloneable{
                  for (int j = 0; j < F1.getFamilia().size(); j++) {
                    
                     LinkedList<Integer> factible=F1.getFamilia().get(j);
-                   //  System.out.println(factible);
                     if(!busaFactibleEn(factible,F2,integeres)) {
                         funciono=false;
                         break;
@@ -547,7 +540,6 @@ public class DeltaMatroide implements Comparable<DeltaMatroide>, Cloneable{
                      
                  }
                  if(funciono) {
-                     System.out.println(integeres[0]);
                      funcionBiyectiva.add(integeres);
                      return true;
                  }
@@ -574,16 +566,12 @@ public class DeltaMatroide implements Comparable<DeltaMatroide>, Cloneable{
                 }
             }else 
             {
-                for (int j = 0; j < etiq.length; j++)  System.out.print(etiq[j]);
-                System.out.println("");
                 permutaciones.add(etiq);
             }
             
         }
         private String[] clonaEtiquetas(String [] et){
             String a[]=new String[et.length];
-            System.out.println(a.length);
-            System.out.println(et[0]);
             for (int i = 0; i < a.length; i++) a[i]=et[i];
             return a;
         }

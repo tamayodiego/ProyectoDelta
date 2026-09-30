@@ -469,11 +469,9 @@ public class Menores extends javax.swing.JFrame {
                 ElementoFolder aux= (ElementoFolder) nodoSelec.getUserObject();
                 //si es un folder
               if(aux.isIsFolder()) {
-                  //System.out.println("entre verdadero");
                  
             }else
               {
-                  //System.out.println("entre falso");     
                 this.matroide=aux.getMatrode();
                   //DefaultMutableTreeNode ok=new DefaultMutableTreeNode
                 cargaMatroide();
@@ -566,7 +564,6 @@ public class Menores extends javax.swing.JFrame {
               aux.expandContra=false;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -582,7 +579,6 @@ public class Menores extends javax.swing.JFrame {
               aux.expandContra=true;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }

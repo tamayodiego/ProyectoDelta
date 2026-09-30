@@ -392,9 +392,7 @@ public class Twisting extends javax.swing.JFrame {
             try {
                 DeltaMatroide temp = (DeltaMatroide) mat.clone();
                 LinkedList<String> factible = creaFactible(jTextField1.getText());
-                // System.out.println(factible+" aaa");
 
-                System.out.println(transformaFactible(factible));
                 mat.setModeFactibles2();
                 mat.setOrdenar(ordenar.isSelected());
                 mat.twist(transformaFactible(factible), obtenFactibles());
@@ -489,7 +487,6 @@ public class Twisting extends javax.swing.JFrame {
         Main.ventanaSelector.setVisible(true);
         
         ElementoFolder F=(ElementoFolder) Main.pila.pop();
-        System.out.println(F);
         F.folder.add(new ElementoFolder(false, D.getNombreFam(), D, F));
       
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -568,7 +565,6 @@ public class Twisting extends javax.swing.JFrame {
 
         }
         String subCad = text.substring(i + 1, j);
-        // System.out.println(subCad);
         String[] arreglo = subCad.split(",");
         for (i = 0; i < arreglo.length; i++) {
             resul.add(arreglo[i]);
@@ -587,7 +583,6 @@ public class Twisting extends javax.swing.JFrame {
     private boolean[] obtenFactibles() {
 
         boolean resul[] = new boolean[mat.getFamilia().size()];
-        System.out.println(resul.length + " result");
         for (int i = 0; i < resul.length; i++) {
             resul[i] = false;
         }

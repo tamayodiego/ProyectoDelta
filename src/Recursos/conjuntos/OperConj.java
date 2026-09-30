@@ -64,16 +64,12 @@ public class OperConj {
 	}
         
         public static boolean isMatroide(LinkedList<LinkedList<Integer>> familia) {
-      //if(modoTest) System.out.println("\nProano familia: "+familia);
         for (int i = 0; i < familia.size(); i++) {
             LinkedList<Integer> F1 = familia.get(i);
             for (int j = 0; j < familia.size(); j++) {
                 if(i!=j){
                     LinkedList<Integer> F2 = familia.get(j);
                     if(!axiomaSimetrico(F1,F2,familia)){
-    //                    System.out.println(F1);
-    //                    System.out.println(F2);
-                      //  if(modoTest)System.out.println("\nEl Axioma Fallo para "+F1 +" y "+F2);
                         return false;
                     }
                 }
@@ -81,17 +77,14 @@ public class OperConj {
             }
             
         }   
-      //  if(modoTest) System.out.println("F Es Un DM");
        return true;
     }
     
     private static boolean axiomaSimetrico(LinkedList<Integer> F1, LinkedList<Integer> F2,LinkedList<LinkedList<Integer>> F) {
         
         LinkedList<Integer> dif=(new Generador()).diferenciaSimetrica(F1,F2);
-      //  if(modoTest) System.out.println("Probando pareja "+F1+" y "+F2+" \nDifSim: "+dif);
         for (Integer x : dif) {
             boolean seCumpleX=false;
-            // if(modoTest)System.out.print("X="+x);
             for (Integer y : dif) {
                 LinkedList<Integer> aux=new LinkedList();
                 aux.add(x);
@@ -99,7 +92,6 @@ public class OperConj {
                 LinkedList<Integer> difEnF=(new Generador()).diferenciaSimetrica(F1,aux);
                 if(buscaFactibleEn(difEnF,F)){
                     seCumpleX=true;
-                   //  if(modoTest) System.out.println("Funciona Y="+y+"tal que F1 △ {x,y}="+F1+"△{"+x+","+y+"}="+difEnF);
                     break;
                     
                 }

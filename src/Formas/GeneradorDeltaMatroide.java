@@ -967,7 +967,6 @@ public class GeneradorDeltaMatroide extends javax.swing.JFrame {
 
     private void listaMatroidesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaMatroidesMouseClicked
         // TODO add your handling code here:
-        //  System.out.println("se pincho");
 
         DefaultMutableTreeNode nodoSelec = (DefaultMutableTreeNode) listaMatroides.getLastSelectedPathComponent();
         if (nodoSelec != null) {
@@ -976,16 +975,12 @@ public class GeneradorDeltaMatroide extends javax.swing.JFrame {
                 jButton7.setEnabled(true);
                 jButton9.setEnabled(true);
                 ElementoFolder aux = (ElementoFolder) nodoSelec.getUserObject();
-                System.out.println(aux);
-                System.out.println(aux.isIsFolder());
                 //si es un folder
                 if (aux.isIsFolder()) {
-                    //System.out.println("entre verdadero");
                     
                     folder = aux;
                     jLabel9.setText(folder.getRuta());
                 } else {
-                    //System.out.println("entre falso");
                     jButton7.setEnabled(true);
                     this.m = aux.getMatrode();
                     //DefaultMutableTreeNode ok=new DefaultMutableTreeNode
@@ -995,22 +990,17 @@ public class GeneradorDeltaMatroide extends javax.swing.JFrame {
                 }
                 DefaultMutableTreeNode ok = (DefaultMutableTreeNode) nodoSelec.getParent();
 
-                System.out.println(ok);
                 try {
                     ElementoFolder aux2 = (ElementoFolder) ok.getUserObject();
-                    System.out.println("pase cast2");
                     folderActual = aux2;
                     indexActual = ok.getIndex(nodoSelec);
-                    System.out.println(indexActual);
                 } catch (java.lang.ClassCastException | NullPointerException ex) {
                     folderActual = Main.deltaMatroides;
                    // indexActual = ok.getIndex(nodoSelec);
                    jButton7.setEnabled(false);
 
                 }
-                System.out.println(aux);
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
                 folder = Main.deltaMatroides;
             }
         }
@@ -1026,7 +1016,6 @@ public class GeneradorDeltaMatroide extends javax.swing.JFrame {
               aux.expandContra=false;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -1042,7 +1031,6 @@ public class GeneradorDeltaMatroide extends javax.swing.JFrame {
               aux.expandContra=true;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -1261,7 +1249,6 @@ public class GeneradorDeltaMatroide extends javax.swing.JFrame {
     }
 
     private void cambiaPanelEntradaMatriz() {
-        System.out.println("Entre aqui");
 
     }
 
@@ -1284,14 +1271,12 @@ public class GeneradorDeltaMatroide extends javax.swing.JFrame {
 
         String aux1 = TextoMatriz.getText();
         if(aux1.equals("")) throw new NoEntradaValida("Sin Datos de entrada");
-        System.out.println(aux1);
         validaEntradaMatriz(aux1);
         AlmacenEnteros parser = new AlmacenEnteros(aux1);
         
         int n = parser.nextInt();
         if(n<0) throw new NoEntradaValida("Entrada invalida");
         byte[][] M = new byte[n][n];
-        System.out.println(n);
 
         for (int i = 0; i < n; i++) {
 
@@ -1314,7 +1299,6 @@ public class GeneradorDeltaMatroide extends javax.swing.JFrame {
         String[] aux2 = aux1.split("\n");
         int n = Integer.parseInt(aux2[0]);
         byte[][] M = new byte[n][n];
-        System.out.println(n);
 
         for (int i = 0; i < n; i++) {
             String[] aux3 = aux2[i + 1].split(" ");

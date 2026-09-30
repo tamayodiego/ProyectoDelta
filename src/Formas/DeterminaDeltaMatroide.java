@@ -332,12 +332,10 @@ public class DeterminaDeltaMatroide extends javax.swing.JFrame {
              boolean isdeltam = op.isMatroide(a.getFamilia());
         
         if (isdeltam) {
-//            System.out.println("ES UN MATROIDE");
             anadirLinea("ES UN DELTA-MATROIDE");
             
             
         }else{
-//            System.out.println("NO ES UN MATROIDE");
             anadirLinea("NO ES UN DELTA-MATROIDE");
         }
         } catch (Exception ex) {

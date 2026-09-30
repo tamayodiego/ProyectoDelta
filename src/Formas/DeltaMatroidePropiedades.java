@@ -620,7 +620,6 @@ public class DeltaMatroidePropiedades extends javax.swing.JFrame {
             
             for (int i = 0; i < etiq.length; i++) {
                 etiq[i]=(String) etiquetasTable.getModel().getValueAt(i, 1);
-              //  System.out.println(etiq[i]);
             }
             if(validaEtiquetas(etiq)) matroide.setEtiquetas(etiq);
             cargaMatroide();
@@ -700,7 +699,6 @@ public class DeltaMatroidePropiedades extends javax.swing.JFrame {
                     jPanel2.setVisible(false);
                    
                 } else {
-                    //System.out.println("entre falso");
 
                     this.matroide = aux.getMatrode();
                     if(matroide.getM()!=null)llenaDeFalsos();
@@ -712,7 +710,6 @@ public class DeltaMatroidePropiedades extends javax.swing.JFrame {
                 }
                
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
                
             }
         }
@@ -728,7 +725,6 @@ public class DeltaMatroidePropiedades extends javax.swing.JFrame {
               aux.expandContra=false;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -744,7 +740,6 @@ public class DeltaMatroidePropiedades extends javax.swing.JFrame {
               aux.expandContra=true;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -999,7 +994,6 @@ public class DeltaMatroidePropiedades extends javax.swing.JFrame {
 //            String textMatris=matrizText.getText();
 //            for (int i = 1; i <= matroide.getM().length; i++) {
 //                int subIndx=textMatris.indexOf("\n", index);
-//                System.out.println(subIndx);
 //                hilit.addHighlight(subIndx, subIndx+1, painter);
 //                index=subIndx+1;
 //                
@@ -1007,7 +1001,6 @@ public class DeltaMatroidePropiedades extends javax.swing.JFrame {
 //            
 //        } catch (BadLocationException ex) {
 //            Logger.getLogger(DeltaMatroidePropiedades.class.getName()).log(Level.SEVERE, null, ex);
-//            System.out.println("error");
 //        }
         
         
@@ -1060,7 +1053,6 @@ public class DeltaMatroidePropiedades extends javax.swing.JFrame {
             for (int j = 1; j <=m.length; j++) {
                 datos[i][j]=m[i][j-1]+"";
                 celdas[aux1.get(i)][1+aux1.get(j-1)]=true;
-              //  System.out.println(celdas[aux1.get(i)][1+aux1.get(j-1)]);
             }
         }
         cargaMatriz();

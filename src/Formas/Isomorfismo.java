@@ -747,7 +747,6 @@ public class Isomorfismo extends javax.swing.JFrame {
                  resultadoListo=false;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
 
             }
         }
@@ -787,7 +786,6 @@ public class Isomorfismo extends javax.swing.JFrame {
 
     private void jTextArea3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea3KeyTyped
         // TODO add your handling code here:
-        System.out.println("se presiono");
     }//GEN-LAST:event_jTextArea3KeyTyped
 
     private void jTextArea4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea4KeyTyped
@@ -822,7 +820,6 @@ public class Isomorfismo extends javax.swing.JFrame {
               aux.expandContra=false;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -838,7 +835,6 @@ public class Isomorfismo extends javax.swing.JFrame {
               aux.expandContra=true;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }

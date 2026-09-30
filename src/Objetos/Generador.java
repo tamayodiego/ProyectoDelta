@@ -67,7 +67,6 @@ public class Generador {
            for(int j =b.getLast() +1 ;
                    j<size;j++){
                
-//               System.out.println("entre2222");
                LinkedList<Integer> Aux=new LinkedList();
                Aux=(LinkedList<Integer>) base.get(i).clone();
                Aux.add(j);
@@ -106,13 +105,8 @@ public class Generador {
            default: n=-1;
        }
        
-//        System.out.println("Entre a analizaMAtriz");
-//        System.out.println(JFrameInicio.generaMatrisString(M));
-//        System.out.println(get);
-//        System.out.println(n);
        
        byte[][] mat=generarMatriz(get,M);
-//       System.out.println(JFrameInicio.generaMatrisString(mat));
        if(n<=0) return null;
        Determinante deter=new Determinante(mat);
 

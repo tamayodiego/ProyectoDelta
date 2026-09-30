@@ -43,17 +43,13 @@ public class ConstructorFamilias {
 
         for (j = cad.length() - 1; j >= 0 && cad.charAt(j) != '}'; j--)
 			;
-        System.out.println(i);
-        System.out.println(j);
          String subcad="" ;
         if(i+1 <j) 
              subcad = cad.substring(i + 1, j);
         else throw new NoEntradaValida("Los Delimitadores \"{\" y \"}\" no concuerdan");
         /////
-        //System.out.println(subcad);
       
         lista=new LinkedList();
-        System.out.println(subcad);
         lista = subs(subcad);
          for (int k = 0; k < lista.size(); k++) {
             String temp=lista.get(k);
@@ -68,7 +64,6 @@ public class ConstructorFamilias {
             }            
         }
         Collections.sort(conjuntoV);
-        System.out.println(conjuntoV);
          
         for (int k = 0; k < lista.size(); k++) {
             String temp=lista.get(k);
@@ -102,7 +97,6 @@ public class ConstructorFamilias {
      
     
     private LinkedList<String> subs(String subcad) throws NoEntradaValida {
-        // System.out.println(subcad);
         LinkedList<String> lista = new LinkedList();
 
         boolean flag = false;
@@ -110,7 +104,6 @@ public class ConstructorFamilias {
         int j = 0;
 
         while (i < subcad.length()) {
-//             System.out.println(subcad.charAt(i));
             if (subcad.charAt(i) == '{') {
                 if (flag) {
                     throw new NoEntradaValida("Una \"{\", no tiene su \"}\" correspondiente");

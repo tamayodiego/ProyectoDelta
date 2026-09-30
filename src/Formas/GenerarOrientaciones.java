@@ -512,10 +512,7 @@ public class GenerarOrientaciones extends javax.swing.JFrame {
     }
 
     private static boolean sonIgueles(LinkedList<LinkedList<Integer>> familia, LinkedList<LinkedList<Integer>> familia0) {
-//         System.out.println(familia);
-//         System.out.println(familia0);
         if(familia.size()!=familia0.size()) {
-//            System.out.println("las familias son de cardinalidad diferente");
            
             return false;
             
@@ -525,12 +522,10 @@ public class GenerarOrientaciones extends javax.swing.JFrame {
             LinkedList<Integer> f1=familia.get(i);
             LinkedList<Integer> f2=familia0.get(i);
             if(f1.size()!=f2.size()) {
-//                System.out.println("factible "+f1+" es diferente de "+f2);
                 return false;
             }
             for (int j = 0; j < f2.size(); j++) {
                 if(!f1.get(j).equals(f2.get(j))) {
-//                     System.out.println("factible "+f1+" es diferente de "+f2);
                     return false;
                 }
                 

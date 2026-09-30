@@ -73,13 +73,10 @@ public class ConjFam {
 					return true;
 
 				if (is(auxF1XY) && flag) {
-//					System.out.println("x=" + x + " y=" + y);
                                         Formas.DeterminaDeltaMatroide.anadirLinea("x=" + x + " y=" + y);
                                         
-//					System.out.println("{x,y}=" + auxXY.impElem());
                                         Formas.DeterminaDeltaMatroide.anadirLinea("{x,y}=" + auxXY.impElem());
                                         
-//					System.out.println(F1.impElem() + "^{x,y}=" + auxF1XY.impElem());
                                         Formas.DeterminaDeltaMatroide.anadirLinea(F1.impElem() + "^{x,y}=" + auxF1XY.impElem());
 					return true;
 				}

@@ -43,12 +43,10 @@ public class MiRender2 extends DefaultTableCellRenderer
       int column)
    {
     super.getTableCellRendererComponent (table, value, isSelected, hasFocus, row, column);
-       System.out.println("lalalalala");
       
       if ( resaltado.test(row) )
       {
           
-          System.out.println(" "+row +" "+resaltado.test(row));
          this.setOpaque(true);
          this.setBackground(Color.orange);
          this.setForeground(Color.BLACK);
