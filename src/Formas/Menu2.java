@@ -707,7 +707,6 @@ public class Menu2 extends javax.swing.JFrame {
               aux.expandContra=false;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -722,7 +721,6 @@ public class Menu2 extends javax.swing.JFrame {
               aux.expandContra=true;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }

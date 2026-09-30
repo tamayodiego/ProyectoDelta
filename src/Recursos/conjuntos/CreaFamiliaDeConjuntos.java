@@ -21,7 +21,6 @@ public class CreaFamiliaDeConjuntos {
 			;
 
         String subcad = cad.substring(i + 1, j);
-        // System.out.println(cad);
 
         LinkedList<String> lista = subs(subcad);
 
@@ -50,7 +49,6 @@ public class CreaFamiliaDeConjuntos {
     }
 
     private LinkedList<String> subs(String subcad) throws Exception {
-        // System.out.println(subcad);
         LinkedList<String> lista = new LinkedList();
 
         boolean flag = false;
@@ -58,7 +56,6 @@ public class CreaFamiliaDeConjuntos {
         int j = 0;
 
         while (i < subcad.length()) {
-//             System.out.println(subcad.charAt(i));
             if (subcad.charAt(i) == '{') {
                 if (flag) {
                     throw new Exception();

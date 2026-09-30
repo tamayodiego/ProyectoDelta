@@ -868,7 +868,6 @@ public ListasDeltaMatroides(int pest,int salida) {
                 }
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
 
             }
         }
@@ -891,7 +890,6 @@ public ListasDeltaMatroides(int pest,int salida) {
         Main.ventanaSelector.setVisible(true);
         ElementoFolder F= (ElementoFolder) Main.pila.pop();
         A.clear();
-        System.out.println(F.folder.size());
         for(ElementoFolder fi:F.folder) if(!fi.isIsFolder()) A.add(fi.getMatrode());
         cargaListaEnTabla(A,ModeloTablaA);
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -980,7 +978,6 @@ public ListasDeltaMatroides(int pest,int salida) {
         
         DefaultMutableTreeNode nodoSelec = (DefaultMutableTreeNode) listaMatroides1.getLastSelectedPathComponent();
         if (nodoSelec != null) {
-            System.out.println(nodoSelec.toString());
             try {
 
                 ElementoFolder aux = (ElementoFolder) nodoSelec.getUserObject();
@@ -993,7 +990,6 @@ public ListasDeltaMatroides(int pest,int salida) {
 
             } catch (java.lang.ClassCastException ex) {
                 folderAdmin=Main.deltaMatroides;
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
 
             }
         }
@@ -1040,7 +1036,6 @@ public ListasDeltaMatroides(int pest,int salida) {
               aux.expandContra=false;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -1056,7 +1051,6 @@ public ListasDeltaMatroides(int pest,int salida) {
               aux.expandContra=true;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -1072,7 +1066,6 @@ public ListasDeltaMatroides(int pest,int salida) {
               aux.expandContra=false;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -1088,7 +1081,6 @@ public ListasDeltaMatroides(int pest,int salida) {
               aux.expandContra=true;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -1135,7 +1127,6 @@ public ListasDeltaMatroides(int pest,int salida) {
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         // TODO add your handling code here:
-        System.out.println("lolololo");
         int tab=jTabbedPane1.getSelectedIndex();
         switch(tab){
             case 0: jLabel1.setText("Mueve, copia o elimina elementos y listas");

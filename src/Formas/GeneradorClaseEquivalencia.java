@@ -495,14 +495,10 @@ public class GeneradorClaseEquivalencia extends javax.swing.JFrame {
             try {
 
                 ElementoFolder aux = (ElementoFolder) nodoSelec.getUserObject();
-                System.out.println(aux);
-                System.out.println(aux.isIsFolder());
                 //si es un folder
                 if (aux.isIsFolder()) {
-                    //System.out.println("entre verdadero");
                    // folder = aux.folder;
                 } else {
-                    //System.out.println("entre falso");
 
                     this.DM = aux.getMatrode();
                     //DefaultMutableTreeNode ok=new DefaultMutableTreeNode
@@ -511,7 +507,6 @@ public class GeneradorClaseEquivalencia extends javax.swing.JFrame {
                 }
                
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
              
             }
         }
@@ -582,7 +577,6 @@ public class GeneradorClaseEquivalencia extends javax.swing.JFrame {
               aux.expandContra=false;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -598,7 +592,6 @@ public class GeneradorClaseEquivalencia extends javax.swing.JFrame {
               aux.expandContra=true;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -786,7 +779,6 @@ public class GeneradorClaseEquivalencia extends javax.swing.JFrame {
             }
             nombre+="}";
             D.setNombreFam(nombre);
-            System.out.println(D.getNombreFam());
             deltaEquivalentes.add(D);
         }
         if(modoNoIsomorfos) cargaEnLista((new OperacionesListas()).depuracionIsomorfica(deltaEquivalentes));

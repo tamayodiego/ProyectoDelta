@@ -32,26 +32,6 @@ public class Validar {
       return val;
     }
     
-    public ParValidacion validacionSimple(byte[][] mat){
-         for(int i =0;i<mat.length;i++){
-            for(int j =i;j<mat.length;j++){
-                if(mat[i][j]>-2 && mat[i][j]<2){
-                    val.setMatrizenGF2oGF3(false);
-                    val.setParamError("Elementos Aij diferentes de -1 0 1");
-                    System.out.println("Salio falso");
-                    return val;
-                    
-                }
-                
-                
-            }
-         }
-         val.setMatrizenGF2oGF3(true);
-         return val;
-    }
-    
-    
-    
     //este metodo analiza si tiene terminos negativos lo que supondria una matriz Antisimetrica.
     //Se revisa la matriz completa: una antisimetrica puede tener todos sus -1 debajo de la diagonal
     private boolean descubreTipoMatriz(byte[][] mat) {

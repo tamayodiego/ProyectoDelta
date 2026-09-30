@@ -197,7 +197,6 @@ public class SelectorMatroide extends javax.swing.JDialog {
                     }else  JOptionPane.showMessageDialog(null, "No has Seleccionado un Delta-Matroide");
                  break;
                  case 5:
-                     System.out.println(this.folder);
                      Main.pila.push(this.folder);
                      //Main.ventanaTwisting.setVisible(true);
                      this.setVisible(false);
@@ -216,23 +215,18 @@ boolean esFolder=false;
         DefaultMutableTreeNode nodoSelec = (DefaultMutableTreeNode) listaMatroides.getLastSelectedPathComponent();
         if (nodoSelec != null) {
             try {
-                System.out.println(nodoSelec.getUserObject().getClass().getName());
                 ElementoFolder aux = (ElementoFolder) nodoSelec.getUserObject();
-                System.out.println(aux);
                 //si es un folder
                 if (aux.isIsFolder()) {
-                    //System.out.println("entre verdadero");
                     esFolder=true;
                     folder=aux;
                 } else {
-                    //System.out.println("entre falso");
                     esFolder=false;
                     this.matroide = aux.getMatrode();
                     jTextArea1.setText(this.matroide.getNombreFam()+"={ "+this.matroide.getResultado()+" }");
                 }
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("salto esot");
 
             }
         }
@@ -248,7 +242,6 @@ boolean esFolder=false;
               aux.expandContra=false;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }
@@ -264,7 +257,6 @@ boolean esFolder=false;
               aux.expandContra=true;
 
             } catch (java.lang.ClassCastException ex) {
-                System.out.println("se selecciono raiz" + ex.getLocalizedMessage());
               
             }
         }

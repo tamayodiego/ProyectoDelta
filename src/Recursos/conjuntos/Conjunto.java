@@ -51,8 +51,6 @@ public class Conjunto implements Comparable<Conjunto> {
 			}
 		}
 		elm += "}";
-		// System.out.println(elemConj.toString());
-		// System.out.println(elm);
 
 		return elm;
 

@@ -256,7 +256,6 @@ public class Main {
             }
             
         }else iniciaInterfazGrafica();
-        System.out.println("regrrese de inter....");
         guardarAreaDeTrabajo();
         System.out.println("Terminando ejecucion .....");
         
