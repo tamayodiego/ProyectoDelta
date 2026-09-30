@@ -33,11 +33,11 @@ import org.junit.jupiter.api.Test;
  * algunas submatrices. Se espera que cambie al corregir el determinante;
  * entonces se revisan las diferencias y se regenera el archivo golden.
  *
- * Para regenerar los archivos: scripts/pruebas.sh --actualizar
+ * Para regenerar los archivos: ./mvnw test -Dactualizar.golden=true
  */
 class CaracterizacionDeltaMatroideTest {
 
-    private static final Path DIRECTORIO_GOLDEN = Paths.get("test", "golden");
+    private static final Path DIRECTORIO_GOLDEN = Paths.get("src", "test", "resources", "golden");
     private static final boolean ACTUALIZAR = Boolean.getBoolean("actualizar.golden");
 
     private static final int GF2 = 0;
@@ -167,7 +167,7 @@ class CaracterizacionDeltaMatroideTest {
             return;
         }
         if (!Files.exists(ruta)) {
-            fail("No existe " + ruta + ". Genéralo con: scripts/pruebas.sh --actualizar");
+            fail("No existe " + ruta + ". Genéralo con: ./mvnw test -Dactualizar.golden=true");
         }
 
         Map<String, String> esperado = new LinkedHashMap<>();
