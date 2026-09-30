@@ -2,6 +2,7 @@ package persistencia;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,15 +30,30 @@ class AreaDeTrabajoJsonTest {
     // ------------------------------------------------------ ida y vuelta
 
     @Test
-    void idaYVuelta_conservaArbolDeltaMatroidesYBanderas() throws Exception {
+    void idaYVuelta_conservaArbolYDeltaMatroides() throws Exception {
         DatosSerializados original = areaDeEjemplo();
         Path ruta = carpeta.resolve("area.json");
 
         AreaDeTrabajoJson.guardar(original, ruta);
         DatosSerializados cargado = AreaDeTrabajoJson.cargar(ruta);
 
-        assertArrayEquals(original.getFlags(), cargado.getFlags());
         assertMismoNodo(original.getMatroides(), cargado.getMatroides(), null);
+    }
+
+    /** Los primeros archivos guardaban las banderas de línea de comandos. */
+    @Test
+    void archivoConBanderasAntiguas_cargaIgnorandolas() throws Exception {
+        Path ruta = escribir("conBanderas.json", "{\"version\":1,"
+                + "\"banderas\":{\"sinInterfazGrafica\":true,\"soloLecturaDeDatos\":true},"
+                + "\"raiz\":{\"nombre\":\"Delta-Matroides\",\"carpeta\":true,\"expandido\":true,"
+                + "\"hijos\":[{\"nombre\":\"Twst's\",\"carpeta\":true,\"expandido\":true,\"hijos\":[]}]}}");
+
+        DatosSerializados cargado = AreaDeTrabajoJson.cargar(ruta);
+
+        assertEquals("Twst's", cargado.getMatroides().getFolder().get(0).getNombre());
+        Path reescrito = carpeta.resolve("reescrito.json");
+        AreaDeTrabajoJson.guardar(cargado, reescrito);
+        assertFalse(leer(reescrito).contains("banderas"));
     }
 
     @Test
@@ -55,7 +71,6 @@ class AreaDeTrabajoJsonTest {
         AreaDeTrabajoJson.guardar(areaDeEjemplo(), ruta);
         String json = leer(ruta);
         assertTrue(json.startsWith("{\"version\":1,"), json.substring(0, 40));
-        assertTrue(json.contains("\"sinValidarMatriz\":true"));
         assertTrue(json.contains("\"nombre\":\"Twst's\""));
     }
 
@@ -114,7 +129,7 @@ class AreaDeTrabajoJsonTest {
     // ---------------------------------------------------------- ejemplo
 
     /**
-     * Raíz con la carpeta "Twst's" por defecto, más: una delta-matroide de
+     * Raíz con la carpeta "Twst's" por defecto, más una delta-matroide de
      * una matriz simétrica (GF2, con twist, ordenar y modo 0), una
      * subcarpeta colapsada con otra subcarpeta que tiene una antisimétrica
      * (GF3), y un menor, que se construye desde una familia (sin matriz ni
@@ -122,8 +137,6 @@ class AreaDeTrabajoJsonTest {
      */
     private static DatosSerializados areaDeEjemplo() throws Exception {
         DatosSerializados datos = new DatosSerializados();
-        datos.getFlags()[1] = true;
-        datos.getFlags()[3] = true;
         ElementoFolder raiz = datos.getMatroides();
 
         DeltaMatroide simetrica = new DeltaMatroide(new byte[][] {

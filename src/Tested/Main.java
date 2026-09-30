@@ -48,7 +48,11 @@ import javax.swing.tree.TreePath;
 public class Main {
     
     private static String nombresArchivos[]=new String[4];
-    public static boolean flags[];
+    /**
+     * Modos de la ejecución actual, activados por argumentos de línea de
+     * comandos (ver determinaBanderas). No se guardan en el área de trabajo.
+     */
+    public static boolean flags[]=new boolean[7];
     public static DatosSerializados datos;
     public static int indexActual;
     public static ElementoFolder  deltaMatroides;
@@ -110,7 +114,6 @@ public class Main {
     }
 
     private static boolean guardarAreaDeTrabajo(Path ruta) {
-        datos.setFlags(flags);
         datos.setMatroides(deltaMatroides);
         try {
             AreaDeTrabajoJson.guardar(datos, ruta);
@@ -172,7 +175,6 @@ public class Main {
             return false;
         }
         deltaMatroides=datos.getMatroides();
-        flags=datos.getFlags();
         return true;
     }
 
@@ -228,7 +230,6 @@ public class Main {
        
         String aviso=cargarAreaDeTrabajo();
         deltaMatroides=datos.getMatroides();
-        flags=datos.getFlags();
 
         determinaBanderas(true,args);
         if(aviso!=null){
