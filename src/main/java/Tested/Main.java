@@ -61,13 +61,11 @@ public class Main {
     public static Menores ventanaMenores;
     public static Menu2 ventanaMenu;
     public static Twisting ventanaTwisting;
-    public static SelectorMatroide ventanaSelector;
     public static DeltaMatroidePropiedades ventanaPropiedades;
     public static GenerarOrientaciones ventanaOrientaciones;
     public static Isomorfismo ventanaIsomorfismo;
     public static ListasDeltaMatroides ventanaListas;
     public static GeneradorClaseEquivalencia ventanaEquivalencias;
-    public static Stack pila=new Stack();
     public static boolean colorearYa=false;
   
 

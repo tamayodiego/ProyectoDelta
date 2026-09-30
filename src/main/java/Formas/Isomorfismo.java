@@ -749,19 +749,15 @@ public class Isomorfismo extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
 
-        Main.ventanaSelector = new SelectorMatroide(this, true, 3);
-        Main.ventanaSelector.setVisible(true);
-        if(!Main.pila.empty())
-        cargaMatroide((DeltaMatroide) Main.pila.pop(), 0);
+        DeltaMatroide elegida = SelectorMatroide.elegirDeltaMatroide(this);
+        if (elegida != null) cargaMatroide(elegida, 0);
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        Main.ventanaSelector = new SelectorMatroide(this, true, 3);
-        Main.ventanaSelector.setVisible(true);
-        if(!Main.pila.empty())
-        cargaMatroide((DeltaMatroide) Main.pila.pop(), 1);
+        DeltaMatroide elegida = SelectorMatroide.elegirDeltaMatroide(this);
+        if (elegida != null) cargaMatroide(elegida, 1);
 
 
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -790,13 +786,12 @@ public class Isomorfismo extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         
-        Main.ventanaSelector = new SelectorMatroide(this, true, 3);
-        Main.ventanaSelector.setVisible(true);
-        try{
-            matroide=(DeltaMatroide) Main.pila.pop();
+        DeltaMatroide elegida = SelectorMatroide.elegirDeltaMatroide(this);
+        if (elegida != null) {
+            matroide=elegida;
             jTextArea1.setText(matroide.getNombreFam()+"={"+matroide.getResultado()+"}");
             DMCargadoB=false;
-        }catch (java.util.EmptyStackException e){}
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped

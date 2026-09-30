@@ -477,10 +477,8 @@ public class Twisting extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        Main.ventanaSelector= new SelectorMatroide(this,true,5);
-        Main.ventanaSelector.setVisible(true);
-        
-        ElementoFolder F=(ElementoFolder) Main.pila.pop();
+        ElementoFolder F = SelectorMatroide.elegirCarpeta(this);
+        if (F == null) return;
         F.folder.add(new ElementoFolder(false, D.getNombreFam(), D, F));
       
     }//GEN-LAST:event_jButton6ActionPerformed

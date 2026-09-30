@@ -627,10 +627,8 @@ public class Menu2 extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-         Main.ventanaSelector= new SelectorMatroide(this,true,3);
-        Main.ventanaSelector.setVisible(true);
-        if(!Main.pila.empty()){
-            DeltaMatroide d=(DeltaMatroide) Main.pila.pop();
+        DeltaMatroide d = SelectorMatroide.elegirDeltaMatroide(this);
+        if(d != null){
             Main.ventanaTwisting=new Twisting(d);
             Main.ventanaTwisting.setVisible(true);
             this.setVisible(false);
@@ -651,16 +649,12 @@ public class Menu2 extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
         
-         Main.ventanaSelector= new SelectorMatroide(this,true,4);
-        Main.ventanaSelector.setVisible(true);
-        
-        
-        
-        if(!Main.pila.empty()){
-            DeltaMatroide D = (DeltaMatroide) Main.pila.pop();
+        DeltaMatroide D = SelectorMatroide.elegirDeltaMatroide(this);
+        if(D != null){
             Main.ventanaOrientaciones = new GenerarOrientaciones(D);
-                    Main.ventanaTwisting.setVisible(true);
-                    this.setVisible(false);
+            // Antes mostraba Main.ventanaTwisting por error.
+            Main.ventanaOrientaciones.setVisible(true);
+            this.setVisible(false);
         }
         
         

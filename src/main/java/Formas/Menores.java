@@ -537,9 +537,8 @@ public class Menores extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Main.ventanaSelector= new SelectorMatroide(this,true,5);
-        Main.ventanaSelector.setVisible(true);
-        ElementoFolder carpeta=(ElementoFolder)Main.pila.pop();
+        ElementoFolder carpeta = SelectorMatroide.elegirCarpeta(this);
+        if (carpeta == null) return;
         if(JOptionPane.showConfirmDialog(null, "Se guardaran los "+(menoresContraccion.size()+menoresBorrado.size())+" Delta-Matroides en "
                 + "la carpeta "+carpeta.getNombre()+" ¿Deseas Continuar?", "Reporte de Operaciones", JOptionPane.YES_NO_OPTION)==0){
             for(int i=0;i<menoresBorrado.size();i++){

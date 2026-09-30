@@ -27,15 +27,46 @@ public class SelectorMatroide extends javax.swing.JDialog {
     /**
      * Creates new form SelectorMatroide
      */
+    private static final int ELEGIR_DELTA_MATROIDE = 3;
+    private static final int ELEGIR_CARPETA = 5;
+
     int param;
     DeltaMatroide matroide;
      ElementoFolder folder;
-    public SelectorMatroide(JFrame padre,boolean modo, int param) {
-        super(padre,modo);
+    /** Lo que eligió el usuario al presionar Aceptar; null si canceló. */
+    private Object seleccion;
+
+    /**
+     * Abre el selector (modal) y espera a que el usuario elija una
+     * delta-matroide.
+     *
+     * @return la delta-matroide elegida, o null si se canceló
+     */
+    public static DeltaMatroide elegirDeltaMatroide(JFrame padre) {
+        return (DeltaMatroide) elegir(padre, ELEGIR_DELTA_MATROIDE);
+    }
+
+    /**
+     * Abre el selector (modal) y espera a que el usuario elija una carpeta.
+     *
+     * @return la carpeta elegida, o null si se canceló
+     */
+    public static ElementoFolder elegirCarpeta(JFrame padre) {
+        return (ElementoFolder) elegir(padre, ELEGIR_CARPETA);
+    }
+
+    private static Object elegir(JFrame padre, int modo) {
+        SelectorMatroide selector = new SelectorMatroide(padre, modo);
+        selector.setVisible(true);
+        return selector.seleccion;
+    }
+
+    private SelectorMatroide(JFrame padre, int param) {
+        super(padre,true);
         this.param = param;
         initComponents();
         setLocationRelativeTo(null);
-        if(param==5) cargaConfiguracionesFolder();
+        if(param==ELEGIR_CARPETA) cargaConfiguracionesFolder();
         else Main.cargaListaMatroides(listaMatroides);
         
 
@@ -154,45 +185,18 @@ public class SelectorMatroide extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        if (matroide != null || param==5) {
-            switch (param) {
-
-                case 0:
-                    Main.ventanaTwisting = new Twisting(matroide);
-                    Main.ventanaTwisting.setVisible(true);
-                    this.setVisible(false);
-                    break;
-                
-                case 2:
-                    Main.ventanaOrientaciones = new GenerarOrientaciones(matroide);
-                    Main.ventanaOrientaciones.setVisible(true);
-                    this.setVisible(false);
-                    break;
-                case 3:
-                    if(!esFolder){
-                       Main.pila.push(matroide);
-                        this.setVisible(false);
-                        
-                    }else  JOptionPane.showMessageDialog(null, "No has Seleccionado un Delta-Matroide");
-                break;
-                 case 4:
-                    if(!esFolder){
-                        Main.pila.push(matroide);
-                        this.setVisible(false);
-                        
-                    }else  JOptionPane.showMessageDialog(null, "No has Seleccionado un Delta-Matroide");
-                 break;
-                 case 5:
-                     Main.pila.push(this.folder);
-                     //Main.ventanaTwisting.setVisible(true);
-                     this.setVisible(false);
-                 break;
-                    
-
+        if (param == ELEGIR_CARPETA) {
+            if (folder != null) {
+                seleccion = folder;
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "No has seleccionado una carpeta");
             }
+        } else if (matroide != null && !esFolder) {
+            seleccion = matroide;
+            this.setVisible(false);
         } else {
-            JOptionPane.showMessageDialog(null, "No has Seleccionado un Delta-Matroide");
+            JOptionPane.showMessageDialog(this, "No has seleccionado un Delta-Matroide");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 boolean esFolder=false;
