@@ -15,36 +15,26 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Guarda y carga el área de trabajo (árbol de carpetas con sus
- * delta-matroides y las banderas de la app) en formato JSON.
+ * delta-matroides) en formato JSON.
  *
  * Reemplaza a la serialización nativa de Java (data.00 / .dma): el formato
  * es legible, está versionado y no ejecuta código al leer archivos ajenos.
  *
  * La huella y la tabla de frecuencias no se guardan: se recalculan a partir
  * de la familia al cargar, igual que hace DeltaMatroide al construirse.
+ *
+ * Los primeros archivos de la versión 1 incluían un objeto "banderas" con
+ * los modos de línea de comandos; ya no se escribe y al cargar se ignora.
  */
 public final class AreaDeTrabajoJson {
 
     /** Versión del formato. Súbela si cambia la estructura del JSON. */
     public static final int VERSION = 1;
-
-    /** Nombre de cada posición del arreglo Main.flags. */
-    private static final String[] BANDERAS = {
-        "leerMatrizDeArchivo",   // 0: -A
-        "sinValidarMatriz",      // 1: -V
-        "bandera2",              // 2: sin uso
-        "inicioEnCero",          // 3: -I
-        "sinInterfazGrafica",    // 4: -G
-        "bandera5",              // 5: sin uso
-        "soloLecturaDeDatos",    // 6: -E
-    };
 
     // Sin escape HTML, para que nombres como "Twst's" se lean tal cual.
     private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
@@ -68,7 +58,6 @@ public final class AreaDeTrabajoJson {
     public static void guardar(DatosSerializados datos, Path ruta) throws IOException {
         ArchivoDto archivo = new ArchivoDto();
         archivo.version = VERSION;
-        archivo.banderas = banderasAMapa(datos.getFlags());
         archivo.raiz = aDto(datos.getMatroides());
 
         Path carpeta = ruta.toAbsolutePath().getParent();
@@ -110,7 +99,6 @@ public final class AreaDeTrabajoJson {
         try {
             DatosSerializados datos = new DatosSerializados();
             datos.setMatroides(desdeDto(archivo.raiz, null));
-            datos.setFlags(mapaABanderas(archivo.banderas));
             return datos;
         } catch (RuntimeException e) {
             throw new FormatoInvalidoException(ruta.getFileName() + " tiene datos inconsistentes: "
@@ -193,29 +181,10 @@ public final class AreaDeTrabajoJson {
         return dm;
     }
 
-    private static Map<String, Boolean> banderasAMapa(boolean[] flags) {
-        Map<String, Boolean> mapa = new LinkedHashMap<>();
-        for (int i = 0; i < BANDERAS.length; i++) {
-            mapa.put(BANDERAS[i], flags != null && i < flags.length && flags[i]);
-        }
-        return mapa;
-    }
-
-    private static boolean[] mapaABanderas(Map<String, Boolean> mapa) {
-        boolean[] flags = new boolean[BANDERAS.length];
-        if (mapa != null) {
-            for (int i = 0; i < BANDERAS.length; i++) {
-                flags[i] = Boolean.TRUE.equals(mapa.get(BANDERAS[i]));
-            }
-        }
-        return flags;
-    }
-
     // -------------------------------------------------------------- DTOs
 
     private static final class ArchivoDto {
         int version;
-        Map<String, Boolean> banderas;
         NodoDto raiz;
     }
 
