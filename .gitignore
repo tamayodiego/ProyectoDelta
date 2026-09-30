@@ -1,15 +1,14 @@
-# Compilación
-build/
-dist/
+# Compilación (Maven y VS Code)
+target/
 bin/
 *.class
 a.out
 
-# Librerías (se descargan con scripts/descargar-dependencias.sh)
-lib/
-
-# NetBeans: configuración local de cada máquina
+# Configuración local de IDEs
 nbproject/private/
+nb-configuration.xml
+.idea/
+*.iml
 
 # Datos que la app genera al ejecutarse
 areaDeTrabajo.json
