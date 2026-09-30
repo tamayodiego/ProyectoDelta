@@ -61,13 +61,11 @@ public class Main {
     public static Menores ventanaMenores;
     public static Menu2 ventanaMenu;
     public static Twisting ventanaTwisting;
-    public static SelectorMatroide ventanaSelector;
     public static DeltaMatroidePropiedades ventanaPropiedades;
     public static GenerarOrientaciones ventanaOrientaciones;
     public static Isomorfismo ventanaIsomorfismo;
     public static ListasDeltaMatroides ventanaListas;
     public static GeneradorClaseEquivalencia ventanaEquivalencias;
-    public static Stack pila=new Stack();
     public static boolean colorearYa=false;
   
 
@@ -94,7 +92,6 @@ public class Main {
     
     public static String ms="",estado="";
     public static int cuenta,uCuenta=0;
-    public static boolean  fin=true;
         
      public static Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().
@@ -111,6 +108,24 @@ public class Main {
     /** Guarda el área de trabajo actual. Es el único punto de guardado de la app. */
     public static void guardarAreaDeTrabajo() {
         guardarAreaDeTrabajo(ARCHIVO_AREA_DE_TRABAJO);
+    }
+
+    /**
+     * Pregunta si se desea cerrar ProyectoDelta; si la respuesta es sí,
+     * guarda el área de trabajo y termina. Si no, regresa sin hacer nada.
+     * Lo usan todas las ventanas al cerrarse con la X.
+     */
+    public static void confirmarYSalir() {
+        if (JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas cerrar ProyectoDelta?",
+                "¿Estás seguro?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            guardarAreaDeTrabajo();
+            System.exit(0);
+        }
+    }
+
+    /** Termina la aplicación sin guardar ("Cerrar ProyectoDelta sin guardar..."). */
+    public static void salirSinGuardar() {
+        System.exit(0);
     }
 
     private static boolean guardarAreaDeTrabajo(Path ruta) {

@@ -886,9 +886,8 @@ public ListasDeltaMatroides(int pest,int salida) {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Main.ventanaSelector= new SelectorMatroide(this, true, 5);
-        Main.ventanaSelector.setVisible(true);
-        ElementoFolder F= (ElementoFolder) Main.pila.pop();
+        ElementoFolder F = SelectorMatroide.elegirCarpeta(this);
+        if (F == null) return;
         A.clear();
         for(ElementoFolder fi:F.folder) if(!fi.isIsFolder()) A.add(fi.getMatrode());
         cargaListaEnTabla(A,ModeloTablaA);
@@ -896,9 +895,8 @@ public ListasDeltaMatroides(int pest,int salida) {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        Main.ventanaSelector= new SelectorMatroide(this, true, 5);
-        Main.ventanaSelector.setVisible(true);
-        ElementoFolder F= (ElementoFolder) Main.pila.pop();
+        ElementoFolder F = SelectorMatroide.elegirCarpeta(this);
+        if (F == null) return;
         B.clear();
         for(ElementoFolder fi:F.folder) if(!fi.isIsFolder()) B.add(fi.getMatrode());
         cargaListaEnTabla(B,ModeloTablaB);
@@ -915,9 +913,8 @@ public ListasDeltaMatroides(int pest,int salida) {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         if(resultado.size()>0){
-         Main.ventanaSelector= new SelectorMatroide(this, true, 5);
-        Main.ventanaSelector.setVisible(true);
-        ElementoFolder F= (ElementoFolder) Main.pila.pop();
+        ElementoFolder F = SelectorMatroide.elegirCarpeta(this);
+        if (F == null) return;
         String[] botones={"Combinar contenidos","Crear una Subcarpeta"};
         int variable = JOptionPane.showOptionDialog (null, "¿Deseas guardar todos los delta-matroides en esta carpeta y \ncombinar su contenido o "
                 + "crear una nueva subcarpeta?", "Combinar o subcarpeta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null/*icono*/, botones, botones[0]);
@@ -957,9 +954,7 @@ public ListasDeltaMatroides(int pest,int salida) {
             
         }
         
-        Main.ventanaSelector=new SelectorMatroide(this,true,5);
-        Main.ventanaSelector.setVisible(true);
-        ElementoFolder destino=(ElementoFolder) Main.pila.pop();
+        ElementoFolder destino = SelectorMatroide.elegirCarpeta(this);
         
         if(destino!=null) {
             destino.folder.addAll(copia);
@@ -1096,9 +1091,7 @@ public ListasDeltaMatroides(int pest,int salida) {
             }
         }
         
-        Main.ventanaSelector=new SelectorMatroide(this,true,5);
-        Main.ventanaSelector.setVisible(true);
-        ElementoFolder destino=(ElementoFolder) Main.pila.pop();
+        ElementoFolder destino = SelectorMatroide.elegirCarpeta(this);
         
         if(destino!=null) destino.folder.addAll(copia);
           
@@ -1151,7 +1144,7 @@ public ListasDeltaMatroides(int pest,int salida) {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        Main.salirSinGuardar();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -1230,13 +1223,7 @@ public ListasDeltaMatroides(int pest,int salida) {
      */
     @Override
     public void dispose() {
-
-        if (JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas cerrar ProyectoDelta?", "¿Esta seguro?", JOptionPane.YES_NO_OPTION) == 0) {
-            Main.fin = false;
-            Main.guardarAreaDeTrabajo();
-            super.dispose();
-            System.exit(0);
-        }
+        Main.confirmarYSalir();
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

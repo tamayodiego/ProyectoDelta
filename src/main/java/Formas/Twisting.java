@@ -375,13 +375,7 @@ public class Twisting extends javax.swing.JFrame {
     }//GEN-LAST:event_BackActionPerformed
 
     public void dispose() {
-
-        if (JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas cerrar ProyectoDelta?", "¿Esta seguro?", JOptionPane.YES_NO_OPTION) == 0) {
-            Main.fin = false;
-            Main.guardarAreaDeTrabajo();
-            super.dispose();
-            System.exit(0);
-        }
+        Main.confirmarYSalir();
 
     }
     private void twistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twistButtonActionPerformed
@@ -483,10 +477,8 @@ public class Twisting extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        Main.ventanaSelector= new SelectorMatroide(this,true,5);
-        Main.ventanaSelector.setVisible(true);
-        
-        ElementoFolder F=(ElementoFolder) Main.pila.pop();
+        ElementoFolder F = SelectorMatroide.elegirCarpeta(this);
+        if (F == null) return;
         F.folder.add(new ElementoFolder(false, D.getNombreFam(), D, F));
       
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -503,7 +495,7 @@ public class Twisting extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        Main.salirSinGuardar();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
