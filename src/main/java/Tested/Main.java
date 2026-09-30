@@ -94,7 +94,6 @@ public class Main {
     
     public static String ms="",estado="";
     public static int cuenta,uCuenta=0;
-    public static boolean  fin=true;
         
      public static Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().

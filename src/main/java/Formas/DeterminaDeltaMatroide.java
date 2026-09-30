@@ -359,7 +359,6 @@ public class DeterminaDeltaMatroide extends javax.swing.JFrame {
         public void dispose() {
 
         if(JOptionPane.showConfirmDialog(null, "¿Esta seguro que deseas cerrar ProyectoDelta?", "¿Esta seguro?", JOptionPane.YES_NO_OPTION)==0){
-            Main.fin = false;
             Main.guardarAreaDeTrabajo();
             super.dispose();
             System.exit(0);

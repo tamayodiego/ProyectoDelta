@@ -19,7 +19,6 @@ import Recursos.modeloArbol.CeldaModelo;
 import Tested.Main;
 import static Tested.Main.datos;
 import static Tested.Main.deltaMatroides;
-import static Tested.Main.fin;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -835,7 +834,6 @@ public class GeneradorDeltaMatroide extends javax.swing.JFrame {
         Main.ventanaTwisting.setVisible(true);
 
         this.setVisible(false);
-        //  while(!fin);
         // presentaResultado();
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -1100,7 +1098,6 @@ public class GeneradorDeltaMatroide extends javax.swing.JFrame {
     public void dispose() {
 
         if(JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas cerrar ProyectoDelta?", "¿Esta seguro?", JOptionPane.YES_NO_OPTION)==0){
-            Main.fin = false;
             Main.guardarAreaDeTrabajo();
             super.dispose();
             System.exit(0);
