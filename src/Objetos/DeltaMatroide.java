@@ -8,7 +8,6 @@ package Objetos;
 import Excepciones.OperacionDeMenorImposible;
 import Recursos.ConstructorFamilias;
 import Recursos.conjuntos.OperConj;
-import Tested.Main;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -54,29 +53,22 @@ public class DeltaMatroide implements Comparable<DeltaMatroide>, Cloneable{
      *@param GF2oGF3 true para analizar en GF2 false para analizar en GF3 
      */
     public DeltaMatroide(byte M[][], int GF2oGF3) {
-        generador=new Generador();
-        factibles=new LinkedList();
-        this.M=M;
-        etiquetas=new String[M.length];
-        for(int i=0;i<M.length;i++) etiquetas[i]=(i+1)+"";
-        
-        this.campoDeOperacion=GF2oGF3;
-        generaDeltaMatroide(M);
-        
-        nombreFam="";
-        construyeFamilia();
-        cardiConjuntoV=M.length;
-        this.huella=new Huella(Familia, cardiConjuntoV);
-        construyeTablaDeFrecuencias();
-        
+        this(M, GF2oGF3, "");
     }
-    
+
     public DeltaMatroide(byte M[][],int GF2oGF3,String fam) {
+        this(M, GF2oGF3, fam, EscuchaProgreso.NINGUNO);
+    }
+
+    /**
+     * @param progreso recibe el avance del análisis de submatrices
+     */
+    public DeltaMatroide(byte M[][],int GF2oGF3,String fam,EscuchaProgreso progreso) {
         generador=new Generador();
         factibles=new LinkedList();
         this.M=M;
         this.campoDeOperacion=GF2oGF3;
-        generaDeltaMatroide(M);
+        generaDeltaMatroide(M, progreso);
         nombreFam=fam;
         construyeFamilia();
         etiquetas=new String[M.length];
@@ -157,35 +149,19 @@ public class DeltaMatroide implements Comparable<DeltaMatroide>, Cloneable{
      *@version 1.7
      *@param M Matriz que se analizara 
      */
-    private void generaDeltaMatroide(byte[][] M) {
-//       
-//        System.out.println("entre a genera delta conM:");
-//        System.out.println(JFrameInicio.generaMatrisString(M));
-            Main.estado="Generando Combinaciones....";
-       
+    private void generaDeltaMatroide(byte[][] M, EscuchaProgreso progreso) {
+        progreso.etapa("Generando combinaciones");
         LinkedList <LinkedList <Integer>> lista=generador.subMatrices(M.length);
-//        //System.out.println("Ya Acabe de Generar Combinaciones");
-//        System.out.println("Tamaño de lista:");
-//        System.out.println(lista.size());
-//        
-            Main.estado="Analizando Combinaciones...";
-            Main.cuenta=lista.size();
-            
-        
+
+        progreso.etapa("Analizando combinaciones");
         analizaLoops();
-//        System.out.println(GF2oGF3);
-        for(int i=0;i<lista.size();i++,Main.uCuenta++){
-//            System.out.println(lista.get(i));
-          SubMatriz matrizAux=generador.analizaSubMatriz(lista.get(i),M,campoDeOperacion);
-//            System.out.println(matrizAux);
-          if(matrizAux!=null) factibles.add(matrizAux);  
-        } 
-        Main.estado="Terminado";
-        Main.uCuenta=0;
-//        System.out.println("Tamaño deltas:");
-//        System.out.println(deltas.size());
-//        
-        
+        int total=lista.size(), hechas=0;
+        for(LinkedList<Integer> combinacion : lista){
+          SubMatriz matrizAux=generador.analizaSubMatriz(combinacion,M,campoDeOperacion);
+          if(matrizAux!=null) factibles.add(matrizAux);
+          progreso.avance(++hechas, total);
+        }
+        progreso.etapa("Terminado");
     }
     
     

@@ -16,9 +16,9 @@
  */
 package Recursos;
 
-import Tested.Main;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.function.BiPredicate;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -28,6 +28,13 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class MiRender extends DefaultTableCellRenderer
 {
+   /** Indica si la celda (renglón, columna) va resaltada. */
+   private final BiPredicate<Integer, Integer> resaltada;
+
+   public MiRender(BiPredicate<Integer, Integer> resaltada) {
+      this.resaltada = resaltada;
+   }
+
    public Component getTableCellRendererComponent(JTable table,
       Object value,
       boolean isSelected,
@@ -37,7 +44,7 @@ public class MiRender extends DefaultTableCellRenderer
    {
       super.getTableCellRendererComponent (table, value, isSelected, hasFocus, row, column);
       
-      if ( Main.ventanaPropiedades.celdas[row][column] )
+      if ( resaltada.test(row, column) )
       {
         
          this.setOpaque(true);

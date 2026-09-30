@@ -1109,7 +1109,7 @@ public class DeltaMatroidePropiedades extends javax.swing.JFrame {
             }
         };
         tabla = new JTableImpl(tm);
-        tabla.setDefaultRenderer (Object.class, new MiRender());
+        tabla.setDefaultRenderer (Object.class, new MiRender((fila, columna) -> celdas[fila][columna]));
       tabla.getColumnModel().getColumn(0).setCellRenderer(tabla.getTableHeader().getDefaultRenderer());
       tabla.setVisible(true);
       jScrollPane5.setViewportView(tabla);

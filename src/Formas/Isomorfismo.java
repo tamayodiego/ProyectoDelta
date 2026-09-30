@@ -704,7 +704,7 @@ public class Isomorfismo extends javax.swing.JFrame {
 
             }
 
-            jTable1.setDefaultRenderer(Object.class, new MiRender2());
+            jTable1.setDefaultRenderer(Object.class, new MiRender2(fila -> renglones[fila]));
 
             jTable1.repaint();
             // jTable1.setVisible(true);

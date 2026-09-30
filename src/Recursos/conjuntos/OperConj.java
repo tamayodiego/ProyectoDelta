@@ -3,7 +3,6 @@ import Formas.DeterminaDeltaMatroide;
 import Objetos.Generador;
 
 
-import Tested.Main;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;

@@ -16,9 +16,9 @@
  */
 package Recursos;
 
-import Tested.Main;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.function.IntPredicate;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -28,6 +28,13 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class MiRender2 extends DefaultTableCellRenderer
 {
+   /** Indica si el renglón va resaltado. */
+   private final IntPredicate resaltado;
+
+   public MiRender2(IntPredicate resaltado) {
+      this.resaltado = resaltado;
+   }
+
    public Component getTableCellRendererComponent(JTable table,
       Object value,
       boolean isSelected,
@@ -38,10 +45,10 @@ public class MiRender2 extends DefaultTableCellRenderer
     super.getTableCellRendererComponent (table, value, isSelected, hasFocus, row, column);
        System.out.println("lalalalala");
       
-      if ( Main.ventanaIsomorfismo.renglones[row] )
+      if ( resaltado.test(row) )
       {
           
-          System.out.println(" "+row +" "+Main.ventanaIsomorfismo.renglones[row]);
+          System.out.println(" "+row +" "+resaltado.test(row));
          this.setOpaque(true);
          this.setBackground(Color.orange);
          this.setForeground(Color.BLACK);
