@@ -112,6 +112,24 @@ public class Main {
         guardarAreaDeTrabajo(ARCHIVO_AREA_DE_TRABAJO);
     }
 
+    /**
+     * Pregunta si se desea cerrar ProyectoDelta; si la respuesta es sí,
+     * guarda el área de trabajo y termina. Si no, regresa sin hacer nada.
+     * Lo usan todas las ventanas al cerrarse con la X.
+     */
+    public static void confirmarYSalir() {
+        if (JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas cerrar ProyectoDelta?",
+                "¿Estás seguro?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            guardarAreaDeTrabajo();
+            System.exit(0);
+        }
+    }
+
+    /** Termina la aplicación sin guardar ("Cerrar ProyectoDelta sin guardar..."). */
+    public static void salirSinGuardar() {
+        System.exit(0);
+    }
+
     private static boolean guardarAreaDeTrabajo(Path ruta) {
         datos.setMatroides(deltaMatroides);
         try {

@@ -153,18 +153,6 @@ public class SelectorMatroide extends javax.swing.JDialog {
        
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /*
-       
-    public void dispose() {
-
-        if(JOptionPane.showConfirmDialog(null, "¿Esta seguro que deceas cerrar ProyectoDelta?", "¿Esta seguro?", JOptionPane.YES_NO_OPTION)==0){
-            Main.guardarAreaDeTrabajo();
-            super.dispose();
-            System.exit(0);
-        }
-
-    }
-    */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if (matroide != null || param==5) {

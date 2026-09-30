@@ -413,7 +413,7 @@ public class GenerarOrientaciones extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        Main.salirSinGuardar();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -501,12 +501,7 @@ public class GenerarOrientaciones extends javax.swing.JFrame {
     }
      @Override
         public void dispose() {
-
-        if(JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas cerrar ProyectoDelta?", "¿Esta seguro?", JOptionPane.YES_NO_OPTION)==0){
-            Main.guardarAreaDeTrabajo();
-            super.dispose();
-            System.exit(0);
-        }
+        Main.confirmarYSalir();
 
     }
 

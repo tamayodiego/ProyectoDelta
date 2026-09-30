@@ -502,12 +502,7 @@ public class Menu2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
        
     public void dispose() {
-
-        if(JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas cerrar ProyectoDelta?", "¿Esta seguro?", JOptionPane.YES_NO_OPTION)==0){
-            Main.guardarAreaDeTrabajo();
-            super.dispose();
-            System.exit(0);
-        }
+        Main.confirmarYSalir();
 
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -737,7 +732,7 @@ public class Menu2 extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        Main.salirSinGuardar();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
   
